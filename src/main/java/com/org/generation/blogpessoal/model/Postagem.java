@@ -25,6 +25,7 @@ public class Postagem {
 	@NotNull(message = "O atributo titulo eh obrigatorio!")
 	@Size(min=5, max=100, message="O atributo titulo deve ter no minimo 5 e no maximo 100 caracteres")
 	private String titulo;
+	
 	@NotNull(message = "O atributo texto eh obrigatorio!")
 	@Size(min=5, max=1000, message="O atributo texto deve ter no minimo 5 e no maximo 1000 caracteres")
 	private String texto;
@@ -36,8 +37,11 @@ public class Postagem {
 	@JsonIgnoreProperties("postagem")
 	private Tema tema;
 	
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
 	
-	
+	//----------------------------getters/setters------------------------------------------------------------
 	public Tema getTema() {
 		return tema;
 	}

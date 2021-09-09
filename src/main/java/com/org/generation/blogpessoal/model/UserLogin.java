@@ -3,8 +3,6 @@ package com.org.generation.blogpessoal.model;
 public class UserLogin {
 	
 	private long id;
-	
-
 
 	private String nome;
 	
