@@ -31,7 +31,7 @@ public class TemaController {
 		return ResponseEntity.ok(temaRepository.findAll());
 	}
 	
-	@GetMapping("{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Tema> getById(@PathVariable long id){
 		return temaRepository.findById(id)
 				.map(resp -> ResponseEntity.ok(resp))
@@ -53,7 +53,7 @@ public class TemaController {
 		return ResponseEntity.status(HttpStatus.OK).body(temaRepository.save(tema));
 	}
 	
-	@DeleteMapping
+	@DeleteMapping("/{id}")
 	public void deleteTema(@PathVariable long id) {
 		temaRepository.deleteById(id);
 	}

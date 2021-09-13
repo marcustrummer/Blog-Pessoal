@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.org.generation.blogpessoal.model.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
-	public Optional<Usuario> findByUsuario(String Usuario);
+	public Optional<Usuario> findByUsuario(String usuario);
 	public Usuario findByNome(String nome);
 	public List<Usuario> findAllByNomeContainingIgnoreCase(String nome);
 
