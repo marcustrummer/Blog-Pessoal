@@ -26,7 +26,6 @@ public class UsuarioService {
 	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
 	public String encoder(String senha) {
-
 		return encoder.encode(senha);
 	}
 
@@ -64,6 +63,8 @@ public class UsuarioService {
 				user.get().setId(usuario.get().getId());
 				user.get().setNome(usuario.get().getNome());
 				user.get().setSenha(usuario.get().getSenha());
+				user.get().setTipoUsuario(usuario.get().getTipoUsuario());
+				user.get().setFoto(usuario.get().getFoto());
 				user.get().setToken(authHeader);
 
 				return user;
@@ -73,23 +74,27 @@ public class UsuarioService {
 	}
 
 	public Optional<Usuario> atualizarUsuario(Usuario usuario) {
-		for (Usuario user : this.listarUsuario()) {
-			if (user.getUsuario().equals(usuario.getUsuario())) {
-				throw new ResponseStatusException(HttpStatus.CONFLICT, "Ja existe um usuario com esse nome", null);
+
+		if (repository.findById(usuario.getId()).isPresent()) {
+
+			Optional<Usuario> buscaUsuario = repository.findByUsuario(usuario.getUsuario());
+
+			if (buscaUsuario.isPresent()) {
+
+				if (buscaUsuario.get().getId() != usuario.getId())
+					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O Usuário já existe!", null);
+
 			}
-		}
-		if (repository.findByUsuario(usuario.getUsuario()).isEmpty()) {
+
 			int idade = Period.between(usuario.getDataNascimento(), LocalDate.now()).getYears();
-			if (idade < 18)
-				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O Usuário é menor de idade!", null);
-
+			if (idade < 13)
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O Usuário é menor de idade", null);
 			usuario.setSenha(encoder(usuario.getSenha()));
+
 			return Optional.of(repository.save(usuario));
-
 		} else {
-
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "O Usuário não encontrado!", null);
-
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!", null);
 		}
 	}
+
 }

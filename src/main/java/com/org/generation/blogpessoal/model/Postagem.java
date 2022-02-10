@@ -41,6 +41,8 @@ public class Postagem {
 	@JsonIgnoreProperties("postagem")
 	private Usuario usuario;
 	
+
+
 	//----------------------------getters/setters------------------------------------------------------------
 	public Tema getTema() {
 		return tema;
@@ -80,5 +82,13 @@ public class Postagem {
 
 	public void setData(Date data) {
 		this.data = data;
+	}
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 }

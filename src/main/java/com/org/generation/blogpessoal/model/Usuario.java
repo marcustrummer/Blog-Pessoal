@@ -41,6 +41,10 @@ public class Usuario {
 	@NotNull
 	@Size(min = 5)
 	private String senha;
+	
+	private String tipoUsuario;
+	
+	private String foto;
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("usuario")
@@ -48,12 +52,14 @@ public class Usuario {
 	
 	
 	//------------------------------------CRIANDO METODO CONSTRUTOR PARA TESTES
-	public Usuario(long id, String nome, String usuario, String senha, LocalDate dataNascimento) {
+	public Usuario(long id, String nome, String usuario, String senha, LocalDate dataNascimento, String tipoUsuario, String foto) {
 		this.id = id;
 		this.nome = nome;
 		this.usuario = usuario;
 		this.senha = senha;
 		this.dataNascimento = dataNascimento;
+		this.tipoUsuario = tipoUsuario;
+		this.foto = foto;
 	}
 	
 	//-------------------------------------SEGUNDO METODO CONSTRUTOR------------------------
@@ -110,4 +116,21 @@ public class Usuario {
 		this.senha = senha;
 	}
 
+	public String getTipoUsuario() {
+		return tipoUsuario;
+	}
+
+	public void setTipoUsuario(String tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	
 }
