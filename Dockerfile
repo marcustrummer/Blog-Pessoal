@@ -5,4 +5,4 @@ RUN mvn clean package -DskipTests
 FROM adoptopenjdk:11-jre-hotspot
 COPY --from=build /target/blogpessoal-0.0.1-SNAPSHOT.jar blogpessoal.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","demo.jar"]
+ENTRYPOINT ["java","-jar","blogpessoal.jar"]
