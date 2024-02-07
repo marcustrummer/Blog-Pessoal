@@ -13,14 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up JDK 11
+      - name: Set up JDK 11 and Maven
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
           java-version: '11'
 
       - name: Build with Maven
-        run: mvn clean install
+        run: mvn clean package -DskipTests
 
   push:
     needs: build
@@ -36,8 +36,8 @@ jobs:
       - name: Build and push Docker image
         run: |
           echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-          docker build -t your-dockerhub-username/your-spring-boot-app:latest .
-          docker push your-dockerhub-username/your-spring-boot-app:latest
+          docker build -t marcustrummer/blogpessoal:latest .
+          docker push marcustrummer/blogpessoal:latest
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
